@@ -1,0 +1,17 @@
+{
+  "name": "cve-2023-27163-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Demo lab: CVE-2023-27163 (request-baskets SSRF) + Maltrail RCE chain",
+  "scripts": {
+    "start": "node scripts/run-demo.js",
+    "demo:ssrf": "node scripts/ssrf-only.js",
+    "lab": "docker compose up -d --build",
+    "lab:down": "docker compose down",
+    "listen": "node scripts/listener.js",
+    "exploit": "node scripts/exploit.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

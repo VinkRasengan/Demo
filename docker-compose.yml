@@ -1,0 +1,39 @@
+# Lab: CVE-2023-27163 (request-baskets ≤1.2.1) + chuỗi RCE (mock Maltrail theo báo cáo)
+# Image maltrail/maltrail:v0.53 không có trên Docker Hub — dùng maltrail-mock (cùng kịch bản PoC).
+services:
+  vulnerable-baskets:
+    image: darklynx/request-baskets:v1.2.1
+    container_name: demo_request_baskets
+    ports:
+      - "55555:55555"
+    networks:
+      - lab_internal_net
+    restart: unless-stopped
+
+  vulnerable-maltrail:
+    build:
+      context: ./maltrail-mock
+      dockerfile: Dockerfile
+    container_name: demo_maltrail
+    expose:
+      - "8338"
+    networks:
+      - lab_internal_net
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  internal-api:
+    build:
+      context: ./internal-api
+      dockerfile: Dockerfile
+    container_name: demo_internal_api
+    expose:
+      - "9000"
+    networks:
+      - lab_internal_net
+    restart: unless-stopped
+
+networks:
+  lab_internal_net:
+    driver: bridge
