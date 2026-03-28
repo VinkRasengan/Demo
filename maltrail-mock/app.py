@@ -3,6 +3,7 @@
 MOCK LAB ONLY — mô phỏng endpoint /login dễ bị command injection (theo kịch bản báo cáo).
 KHÔNG dùng ngoài môi trường demo cô lập.
 """
+import os
 import http.server
 import socketserver
 import subprocess
